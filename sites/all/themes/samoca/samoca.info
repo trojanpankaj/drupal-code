@@ -1,0 +1,17 @@
+name = samoca
+description = A custom theme for samoca
+package = Core
+version = VERSION
+core = 7.x
+
+regions[featured] = Featured
+regions[header] = Header
+regions[content] = content
+regions[footer] = footer
+regions[sidebar] = Sidebar
+regions[help] = Help
+
+stylesheets[all][] = style.css
+stylesheets[print][] = print.css
+settings[garland_width] = fluid
+

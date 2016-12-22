@@ -1,0 +1,80 @@
+<?php
+
+function windfarm_menu() {
+    $items = array();
+    $items['windfarm_module/form'] = array(
+        'title' => t('My form'),
+        'description' => t('windfarm form'),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('windfarm_form'),
+        'access callback' => TRUE,
+    );
+    return $items;
+}
+
+/**
+ *
+ * return mixed
+ */
+function windfarm_form($form){
+    $form['name'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Name'),
+    );
+    // To make these fields required
+    $form['name']['first'] = array(
+        '#type' => 'textfield',
+        '#title' => t('First name'),
+        '#required' => TRUE, // Added
+    );
+
+    $form['name']['last'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Last name'),
+        '#required' => TRUE, // Added
+    );
+    $form['item'] = array(
+        '#type' => 'checkboxes',
+        '#options' => array( "Male", "Female",),
+        '#description' => '"seclect option"',
+        '#required' => 'TRUE',
+
+    );
+    $form['year_of_birth'] = array(
+        '#type' => 'textfield',
+        '#title' => "Year of birth",
+        '#description' => 'Format is "YYYY"',
+
+    );
+    $form ['Address'] = array(
+        '#type' => 'textfield',
+         '#title' => 'Address',
+        '#required' => 'TRUE',
+    );
+    $form['crust_size'] = array(
+        '#title' => t('Select'),
+        '#type' => 'select',
+        '#description' => 'Select the desired.',
+        '#options' => array(t('--- SELECT ---'), t('10"'), t('12"'), t('16"')),
+    );
+
+    $form ['date'] = array(
+        '#type' => 'date_select',
+        '#title' => t('Date'),
+        '#description' => '"Format is YYYY, MM, DD" ',
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit',
+    );
+
+    return $form;
+}
+    function windfarm_form_validate($form_state)
+    {
+        $year_of_birth = $form_state['values']['year_of_birth'];
+        if ($year_of_birth && ($year_of_birth < 1900 || $year_of_birth > 2000)) {
+            form_set_error('year_of_birth', 'Enter a year between 1900 and 2000.');
+        }
+    }
